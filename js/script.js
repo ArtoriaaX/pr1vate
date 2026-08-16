@@ -174,47 +174,44 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
-    // --- V3.2 Mobile-Safe Video Playback Handler ---
+// --- V3.2 Mobile-Safe Video Playback Handler (REVISI) ---
     const bgVideo = document.getElementById('bg-video');
     const avatarVideo = document.getElementById('hero-avatar');
     const bgVideos = [bgVideo, avatarVideo].filter(Boolean);
 
-    const safePlayVideo = (vid) => {
-        // Only attempt to play if the video is paused and the page is currently visible
-        if (vid.paused && document.visibilityState === 'visible') {
-            const playPromise = vid.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => { /* Silently catch autoplay restrictions */ });
+    const safePlayVideo = async (vid) => {
+        try {
+            // Hanya jalankan jika sedang pause dan tab sedang aktif
+            if (vid.paused && document.visibilityState === 'visible') {
+                await vid.play();
             }
+        } catch (error) {
+            // Berhenti memaksa jika di-blokir oleh OS (misal: Low Power Mode)
+            console.warn("Video playback prevented by OS:", error);
         }
     };
 
     bgVideos.forEach(vid => {
-        // 1. Attempt initial play
-        safePlayVideo(vid);
+        // 1. Beri sedikit jeda agar DOM & resources browser siap sebelum memaksa play
+        setTimeout(() => safePlayVideo(vid), 150);
 
-        // 2. Retry when enough data is loaded to play
-        vid.addEventListener('canplay', () => safePlayVideo(vid));
-
-        // 3. Force restart if the video naturally ends (fallback for loop attribute)
+        // 2. Play ulang saat video selesai (mengakali loop yang kadang gagal di mobile)
         vid.addEventListener('ended', () => {
             vid.currentTime = 0;
             safePlayVideo(vid);
         });
 
-        // 4. Handle buffering and network stalls gracefully
-        vid.addEventListener('stalled', () => safePlayVideo(vid));
-        vid.addEventListener('waiting', () => safePlayVideo(vid));
-
-        // 5. Instantly resume if the mobile browser aggressively pauses it while visible
-        vid.addEventListener('pause', () => safePlayVideo(vid));
+        // 3. Play jika browser merasa buffer sudah cukup
+        vid.addEventListener('canplay', () => safePlayVideo(vid));
+        
+        // HAPUS event 'pause', 'stalled', dan 'waiting' yang agresif di versi sebelumnya.
     });
 
-    // 6. Resume playback when switching back to the tab/app
+    // 4. Lanjutkan play saat user kembali ke tab ini
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
             bgVideos.forEach(vid => safePlayVideo(vid));
         }
     });
-    // -----------------------------------------------
+    // --------------------------------------------------------
 });
