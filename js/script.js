@@ -214,4 +214,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     // --------------------------------------------------------
+    // --- V3.3 Jurus Pamungkas: Force Unlock Video on First User Interaction ---
+    const unlockVideos = () => {
+        bgVideos.forEach(vid => {
+            if (vid.paused) {
+                let playPromise = vid.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(() => {});
+                }
+            }
+        });
+        // Hapus listener setelah jalan biar nggak menuhin memori HP
+        document.removeEventListener('touchstart', unlockVideos);
+        document.removeEventListener('click', unlockVideos);
+        document.removeEventListener('scroll', unlockVideos);
+    };
+
+    // Begitu user nyentuh, ngeklik, atau scroll dikit aja, video langsung dipaksa bangun
+    document.addEventListener('touchstart', unlockVideos, { passive: true, once: true });
+    document.addEventListener('click', unlockVideos, { once: true });
+    document.addEventListener('scroll', unlockVideos, { passive: true, once: true });
+    // -------------------------------------------------------------------------
 });
