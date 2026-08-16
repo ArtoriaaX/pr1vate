@@ -55,6 +55,14 @@ body {
     object-fit: cover;
     object-position: center;
 }
+/* Paksa Mobile menggunakan GPU untuk render video agar tidak freeze */
+#bg-video, #hero-avatar {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    will-change: transform;
+    /* Menyembunyikan kontrol video bawaan iOS yang kadang muncul sebagai bug */
+    -webkit-media-controls: none !important;
+}
 
 .bg-overlay {
     position: absolute;
