@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>pr1vate - just passing through.</title>
+    <!-- Modern Premium Font: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Cinematic Background -->
+    <div class="bg-container">
+        <div class="bg-overlay"></div>
+        <div class="ambient-glow"></div>
+        <video id="bg-video" class="animate-fade-in" autoplay loop muted playsinline>
+            <source src="assets/video/background.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Navigation (Unified Desktop & Mobile) -->
+    <nav class="glass-nav animate-fade-in delay-6">
+        <div class="nav-brand" id="nav-username">pr1vate</div>
+        <div class="nav-links">
+            <a href="#socials-section" class="socials-scroll">SOCIALS</a>
+            <a href="#music-player" class="music-scroll">MUSIC</a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="avatar-wrapper animate-scale delay-1">
+                <div id="prlx-avatar" class="parallax-target">
+                    <div class="avatar-inner-ring">
+                        <!-- Avatar Video Replacement -->
+                        <video src="assets/video/avatar.mp4" poster="assets/images/avatar.png" class="avatar" id="hero-avatar" autoplay loop muted playsinline></video>
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="username animate-up delay-2" id="hero-username">pr1vate</h1>
+            <p class="tagline animate-up delay-3" id="hero-tagline">just passing through.</p>
+            
+            <div class="online-status animate-up delay-4">
+                <span class="status-dot"></span>
+                <span class="status-text">online</span>
+            </div>
+        </section>
+
+        <!-- Socials Section -->
+        <section id="socials-section" class="socials">
+            <div class="socials-anim-wrapper animate-up delay-5">
+                <div id="prlx-socials" class="social-card glass-panel parallax-target">
+                    <div class="card-glow"></div>
+                    <div id="social-links-container" class="social-links-list">
+                        <!-- Links injected via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Music Player Floating Widget -->
+    <aside id="music-player" class="music-player glass-panel animate-up delay-6">
+        <div class="player-header">
+            <div class="cover-art" id="cover-art-container">
+                <img id="cover-image" src="" alt="Cover Artwork" style="display: none;">
+                <i class="fa-solid fa-compact-disc" id="cover-icon"></i>
+            </div>
+            <div class="track-info">
+                <h4 id="song-title">Song Title</h4>
+                <p id="artist-name">Artist Name</p>
+            </div>
+            <button class="play-pause-btn" id="play-pause-btn" aria-label="Play/Pause">
+                <i class="fa-solid fa-play" id="play-icon"></i>
+            </button>
+        </div>
+        <div class="player-controls">
+            <span id="current-time" class="time-text">0:00</span>
+            <div class="progress-bar-container" id="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            <span id="duration" class="time-text">0:00</span>
+        </div>
+        <audio id="audio-element"></audio>
+    </aside>
+
+    <!-- Footer -->
+    <footer>
+        <p id="footer-username">pr1vate</p>
+        <p class="footer-tagline" id="footer-tagline">just passing through.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
