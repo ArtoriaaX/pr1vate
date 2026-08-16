@@ -553,3 +553,20 @@ footer {
         gap: 0.8rem;
     }
 }
+
+/* Jurus Nipu Browser Mobile biar GPU melek terus */
+@keyframes keepGPUAwake {
+    0% { opacity: 0.99; }
+    100% { opacity: 1; }
+}
+
+#bg-video, #hero-avatar {
+    /* Paksa render di layer 3D terpisah */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+    -webkit-media-controls: none !important;
+    
+    /* Animasi transparan yang nggak kasat mata tapi maksa GPU jalan terus */
+    animation: keepGPUAwake 2s infinite alternate;
+}
