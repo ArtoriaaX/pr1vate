@@ -174,4 +174,47 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+    // --- V3.2 Mobile-Safe Video Playback Handler ---
+    const bgVideo = document.getElementById('bg-video');
+    const avatarVideo = document.getElementById('hero-avatar');
+    const bgVideos = [bgVideo, avatarVideo].filter(Boolean);
+
+    const safePlayVideo = (vid) => {
+        // Only attempt to play if the video is paused and the page is currently visible
+        if (vid.paused && document.visibilityState === 'visible') {
+            const playPromise = vid.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => { /* Silently catch autoplay restrictions */ });
+            }
+        }
+    };
+
+    bgVideos.forEach(vid => {
+        // 1. Attempt initial play
+        safePlayVideo(vid);
+
+        // 2. Retry when enough data is loaded to play
+        vid.addEventListener('canplay', () => safePlayVideo(vid));
+
+        // 3. Force restart if the video naturally ends (fallback for loop attribute)
+        vid.addEventListener('ended', () => {
+            vid.currentTime = 0;
+            safePlayVideo(vid);
+        });
+
+        // 4. Handle buffering and network stalls gracefully
+        vid.addEventListener('stalled', () => safePlayVideo(vid));
+        vid.addEventListener('waiting', () => safePlayVideo(vid));
+
+        // 5. Instantly resume if the mobile browser aggressively pauses it while visible
+        vid.addEventListener('pause', () => safePlayVideo(vid));
+    });
+
+    // 6. Resume playback when switching back to the tab/app
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            bgVideos.forEach(vid => safePlayVideo(vid));
+        }
+    });
+    // -----------------------------------------------
 });
