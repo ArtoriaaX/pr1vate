@@ -172,8 +172,8 @@ main {
 }
 
 .avatar {
-    width: clamp(75px, 22vw, 120px);
-    height: clamp(75px, 22vw, 120px);
+    width: clamp(95px, 26vw, 125px);
+    height: clamp(95px, 26vw, 125px);
     border-radius: 50%;
     object-fit: cover;
     border: 1px solid rgba(0,0,0,0.5);
