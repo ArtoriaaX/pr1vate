@@ -164,12 +164,14 @@ main {
 .avatar-inner-ring {
     padding: 3px;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.01) 100%);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5), var(--glow);
+    /* Sedikit diterangin garis pinggir kacanya */
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 100%);
+    /* Pasang animasi bernapasnya di sini */
+    animation: avatarBreathingGlow 4s ease-in-out infinite;
     transition: var(--transition-smooth);
-    /* Forcer masking if needed on older browsers */
     overflow: hidden; 
 }
+
 @keyframes avatarBreathingGlow {
     0% { 
         box-shadow: 0 0 20px rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0,0,0,0.5); 
@@ -194,7 +196,7 @@ main {
 
 .parallax-target:hover .avatar-inner-ring {
     transform: scale(1.04);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.6), 0 0 30px rgba(255,255,255,0.08);
+    box-shadow: 0 0 60px rgba(255, 255, 255, 0.35), 0 15px 40px rgba(0,0,0,0.6) !important;
 }
 
 .username {
