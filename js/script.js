@@ -6,8 +6,8 @@ const CONFIG = {
     username: "pr1vate",
     tagline: "just passing through.",
     music: {
-        title: "Fashion",
-        artist: "Britney Manson",
+        title: "Bye (Altare)",
+        artist: "Ariana Grande",
         src: "assets/music/song.mp3",
         cover: "assets/images/music-cover.jpg"
     },
