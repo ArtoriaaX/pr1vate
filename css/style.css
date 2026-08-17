@@ -170,6 +170,18 @@ main {
     /* Forcer masking if needed on older browsers */
     overflow: hidden; 
 }
+@keyframes avatarBreathingGlow {
+    0% { 
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0,0,0,0.5); 
+    }
+    50% { 
+        /* Titik paling terang, radius pendaran melebar ke 45px */
+        box-shadow: 0 0 45px rgba(255, 255, 255, 0.25), 0 10px 30px rgba(0,0,0,0.5); 
+    }
+    100% { 
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0,0,0,0.5); 
+    }
+}
 
 .avatar {
     width: clamp(95px, 26vw, 125px);
@@ -552,21 +564,4 @@ footer {
         margin-bottom: 0.8rem;
         gap: 0.8rem;
     }
-}
-
-/* Jurus Nipu Browser Mobile biar GPU melek terus */
-@keyframes keepGPUAwake {
-    0% { opacity: 0.99; }
-    100% { opacity: 1; }
-}
-
-#bg-video, #hero-avatar {
-    /* Paksa render di layer 3D terpisah */
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    will-change: transform, opacity;
-    -webkit-media-controls: none !important;
-    
-    /* Animasi transparan yang nggak kasat mata tapi maksa GPU jalan terus */
-    animation: keepGPUAwake 2s infinite alternate;
 }
